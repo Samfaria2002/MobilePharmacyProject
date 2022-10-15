@@ -19,7 +19,7 @@ export default function SignIn() {
       <Text style={styles.textForm}>Senha</Text>
       <TextInput style={styles.textInput} placeholder="Insira sua Senha" secureTextEntry={true}></TextInput>
 
-      <TouchableOpacity onPress={ () => navigation.navigate('SignIn')} style={styles.button}>
+      <TouchableOpacity onPress={ () => navigation.navigate('Home')} style={styles.button}>
         <Text style={styles.textButton}>Fazer Login</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={ () => navigation.navigate('Register')} style={styles.registerBox}>
