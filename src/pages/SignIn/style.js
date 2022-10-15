@@ -60,7 +60,10 @@ exports.styles = StyleSheet.create({
     alignItems: 'center'
   },
   registerText: {
-    fontSize: 15
+    fontSize: 18,
+    color: "#7bb7e0",
+    fontWeight: "bold",
+    textDecorationLine: 'underline'
   },
 
   /** */

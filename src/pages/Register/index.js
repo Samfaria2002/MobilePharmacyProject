@@ -23,7 +23,10 @@ export default function Register() {
       <TextInput style={styles.textInput} keyboardType="numbers-and-punctuation" placeholder="Insira sua data de nascimento" ></TextInput>
 
       <Text style={styles.textForm}>Senha</Text>
-      <TextInput style={styles.textInput} placeholder="Insira sua senha" ></TextInput>
+      <TextInput style={styles.textInput} placeholder="Insira sua senha" secureTextEntry={true}></TextInput>
+
+      <Text style={styles.textForm}>Confirmar senha</Text>
+      <TextInput style={styles.textInput} placeholder="Insira sua senha" secureTextEntry={true}></TextInput>
 
       <TouchableOpacity onPress={ () => navigation.navigate("SignIn")} style={styles.button}>
         <Text style={styles.textButton}>Registrar</Text>

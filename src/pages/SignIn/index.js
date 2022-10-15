@@ -13,12 +13,11 @@ export default function SignIn() {
       </View>
 
       
-
       <Text style={styles.textForm}>Login</Text>
       <TextInput style={styles.textInput} placeholder="Insira seu Login"></TextInput>
 
       <Text style={styles.textForm}>Senha</Text>
-      <TextInput style={styles.textInput} placeholder="Insira sua Senha" ></TextInput>
+      <TextInput style={styles.textInput} placeholder="Insira sua Senha" secureTextEntry={true}></TextInput>
 
       <TouchableOpacity onPress={ () => navigation.navigate('SignIn')} style={styles.button}>
         <Text style={styles.textButton}>Fazer Login</Text>
