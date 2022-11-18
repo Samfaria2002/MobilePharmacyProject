@@ -10,6 +10,7 @@ exports.styles = StyleSheet.create({
   },
   formContext: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: "#FFF",
     paddingLeft: '15%',
     paddingRight: '15%',
@@ -27,6 +28,7 @@ exports.styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 2,
     marginBottom: 30,
+    fontSize: 17
   },
   logo: {
     width: 350,
@@ -40,7 +42,7 @@ exports.styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    marginTop: 50
+    marginTop: 50,
   },
   button: {
     backgroundColor: '#7bb7e0',
@@ -48,7 +50,8 @@ exports.styles = StyleSheet.create({
     padding: '5%',
     borderRadius: 50,
     justifyContent: "flex-start",
-    marginTop: 50
+    marginTop: 20,
+    marginBottom: 30
   },
   textButton: {
     color: '#FFF',
@@ -64,6 +67,11 @@ exports.styles = StyleSheet.create({
     color: "#7bb7e0",
     fontWeight: "bold",
     textDecorationLine: 'underline'
+  },
+  keyBoardView: {
+    flex: 1 ,
+    backgroundColor: '#fff',
+    justifyContent: 'center'
   },
 
   /** */
