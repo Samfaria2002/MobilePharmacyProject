@@ -6,13 +6,13 @@ exports.styles = StyleSheet.create({
     color: "gray",
     fontSize: "1.5rem",
     fontWeight: "bold",
-    
+
   },
   formContext: {
     flex: 1,
     backgroundColor: "#FFF",
-    paddingLeft: '15%',
-    paddingRight: '15%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   textForm: {
     color: "#000000",
@@ -29,10 +29,8 @@ exports.styles = StyleSheet.create({
     marginBottom: 30,
   },
   logo: {
-    width: 350,
-    height: 350,
-    marginBottom: -50,
-    marginTop: -20
+    width: '100%',
+    height: 100
   },
   input: {
     height: 40,
@@ -65,9 +63,6 @@ exports.styles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: 'underline'
   },
-
-  /** */
-
   registerTitleBox: {
     marginTop: 40,
     marginBottom: 30,
@@ -76,5 +71,27 @@ exports.styles = StyleSheet.create({
   registerTitle: {
     fontSize: 21,
     fontWeight: 'bold'
+  },
+  iconBox: {
+    backgroundColor: '#7bb7e0',
+    width: 100,
+    height: 100,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 30,
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    textAlign: "center"
+  },
+  rowIcons: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 30
+  },
+  mapArea: {
+    borderWidth: 5,
+    borderRadius: 10,
+    height: '90%',
+    borderColor: '#7bb7e0'
   }
 });

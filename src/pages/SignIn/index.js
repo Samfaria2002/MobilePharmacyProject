@@ -2,6 +2,7 @@ import { View, Text, TextInput, Image, KeyboardAvoidingView, TouchableOpacity } 
 import { styles } from "./style";
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -9,9 +10,9 @@ export default function SignIn() {
   const [senha, setSenha] = useState('')
 
   const handleLogin = () => {
-    if(login != '' && senha != ''){
+    if (login != '' && senha != '') {
       navigation.navigate('Home')
-    }else{
+    } else {
       alert('Insira um usuário e senha validos')
     }
   }
@@ -23,28 +24,42 @@ export default function SignIn() {
           <Image source={require("../../assets/Logo.png")} style={styles.logo} />
         </View>
 
+        <View>
+          <Text style={styles.textForm}>Login</Text>
+          <TextInput style={styles.textInput}
+            placeholder="Insira seu Login"
+            value={login}
+            onChangeText={(text) => setLogin(text)}
+          />
 
-        <Text style={styles.textForm}>Login</Text>
-        <TextInput style={styles.textInput}
-          placeholder="Insira seu Login"
-          value={login}
-          onChangeText={(text) => setLogin(text)}
-        />
+          <Text style={styles.textForm}>Senha</Text>
+          <TextInput style={styles.textInput}
+            placeholder="Insira sua Senha"
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={(text) => setSenha(text)}
+          />
+        </View>
+        <View style={{justifyContent: 'space-evenly', padding: 10, flex: 1 }}>
+          <TouchableOpacity onPress={handleLogin} style={styles.button}>
+            <Text style={styles.textButton}>Fazer Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.registerBox}>
+            <Text style={styles.registerText}>Registre-se</Text>
+          </TouchableOpacity>
 
-        <Text style={styles.textForm}>Senha</Text>
-        <TextInput style={styles.textInput}
-          placeholder="Insira sua Senha"
-          secureTextEntry={true}
-          value={senha}
-          onChangeText={(text) => setSenha(text)}
-        />
+          <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={() => alert('Login com Facebook')}>
+            <Text style={{ fontSize: 25, color: 'white' }}>
+              Login with Facebook
+            </Text>
+          </Icon.Button>
+          <Icon.Button name="google" backgroundColor="#d6473c" onPress={() => alert('Login com Google')}>
+            <Text style={{ fontSize: 25, color: 'white' }}>
+              Login with Google
+            </Text>
+          </Icon.Button>
+        </View>
 
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.textButton}>Fazer Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.registerBox}>
-          <Text style={styles.registerText}>Registre-se</Text>
-        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

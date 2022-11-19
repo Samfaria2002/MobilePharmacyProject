@@ -48,10 +48,7 @@ exports.styles = StyleSheet.create({
     backgroundColor: '#7bb7e0',
     alignItems: 'center',
     padding: '5%',
-    borderRadius: 50,
-    justifyContent: "flex-start",
-    marginTop: 20,
-    marginBottom: 30
+    borderRadius: 50
   },
   textButton: {
     color: '#FFF',
@@ -59,7 +56,6 @@ exports.styles = StyleSheet.create({
     fontWeight: "bold"
   },
   registerBox: {
-    marginTop: 20,
     alignItems: 'center'
   },
   registerText: {
