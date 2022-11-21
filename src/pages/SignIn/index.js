@@ -10,13 +10,10 @@ export default function SignIn() {
   const [senha, setSenha] = useState('')
 
   const handleLogin = () => {
-    if (login != '' && senha != '') {
-      navigation.navigate('Home')
-    } else {
-      alert('Insira um usuário e senha validos')
-    }
+    navigation.navigate('Home')
   }
 
+ 
   return (
     <KeyboardAvoidingView style={styles.keyBoardView} behavior="padding">
       <View style={styles.formContext}>

@@ -24,6 +24,7 @@ const Search = () => {
             onChangeText={onChangeSearch}
             onIconPress={onIconPress}
             value={searchQuery}
+            onSubmitEditing={onIconPress}
         />
     );
 };

@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "mobileinterface-hp",
-    "slug": "mobileinterface-hp",
+    "name": "HelpPharm",
+    "slug": "HelpPharm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/LogoFundoBranco.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,18 +22,23 @@
     },
     "android": {
       "config": {
-        "googleMaps":{
+        "googleMaps": {
           "apiKey": "AIzaSyDXPtwGw223stkzcuPUhc89BCtbwIcV4i0"
         }
       },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.helpPharm.helpPharm"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "009c367d-46cc-44ee-8606-e2f5082f920e"
+      }
     }
   }
 }

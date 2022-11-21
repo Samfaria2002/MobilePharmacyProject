@@ -21,6 +21,10 @@ export default function Home() {
         longitudeDelta: 0.0421
     })
 
+    function teste(){
+        navigation.navigate('UserPage')
+    }
+
     return (
         <View style={styles.formContext}>
 
@@ -32,7 +36,7 @@ export default function Home() {
                 <IconButton
                     icon="account"
                     size={50}
-                    onPress={() => messageError()}
+                    onPress={() => teste()}
                     color='white'
                     style={styles.iconBox}
                 />

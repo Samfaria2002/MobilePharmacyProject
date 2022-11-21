@@ -25,6 +25,14 @@ exports.styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 5,
         color: '#80cbc4'
-
     },
+    containerMedicines: {
+        flex: 1,
+        height: Dimensions.get("window").height,
+        width: Dimensions.get("window").width
+    },
+    card: {
+        height: '96%',
+        borderRadius: 30,
+    }
 })

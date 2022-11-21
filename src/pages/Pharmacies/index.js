@@ -1,42 +1,36 @@
 import { styles } from "./style";
 import React, { useState } from "react"
 import { View, Text, FlatList, TouchableOpacity } from "react-native"
-import users from "../../data/user"
+import pharmacies from "../../data/pharmacie"
 import { IconButton } from 'react-native-paper';
-import { ListItem, Avatar } from '@rneui/base';
-// import users from "../../data/user"
-// import DetalheContato from "../detalheContato"
+import { ListItem } from '@rneui/base';
+import { useNavigation } from '@react-navigation/native'
+
 export default function Pharmacies() {
+    const navigation = useNavigation();
+    const [pharmacieID, setPharmacieID] = useState(null)
 
-    const [mostrarDetalhe, setMostrarDetalhe] = useState(false)
-    const [userID, setUserID] = useState(null)
-
-    function abrirDetalhe(user) {
-        setUserID(user.id)
-        setMostrarDetalhe(true)
+    function abrirDetalhe(pharmacie) {
+        setPharmacieID(pharmacie.id)
+        navigation.navigate('Medicines', { pharmacieID: pharmacie.id })
     }
 
-    function abrirLista() {
-        setUserID(null)
-        setMostrarDetalhe(false)
-    }
-
-    function getPharmacie({ item: user }) {
+    function getPharmacie({ item: pharmacie }) {
         return (
-            
             <View style={styles.item}>
-                <ListItem key={user.id} bottomDivider>
+                <ListItem key={pharmacie.id} bottomDivider>
                     <IconButton
                         icon="hospital-marker"
                         size={40}
                         color='#7bb7e0'
+                        onPress={() => abrirDetalhe(pharmacie)}
                     />
                     <ListItem.Content>
-                        <ListItem.Title>{user.name}</ListItem.Title>
-                        <ListItem.Subtitle>{user.endereco}</ListItem.Subtitle>
+                        <ListItem.Title>{pharmacie.name}</ListItem.Title>
+                        <ListItem.Subtitle>{pharmacie.endereco}</ListItem.Subtitle>
                         <Text
                             style={styles.textInformacao}
-                            onPress={() => abrirDetalhe(user)}
+                            onPress={() => abrirDetalhe(pharmacie)}
                         >
                             Mais informações
                         </Text>
@@ -47,29 +41,17 @@ export default function Pharmacies() {
     }
 
     return (
-        <View style={styles.container}> 
-            {mostrarDetalhe === true ? (
-                // se for verdadeiro
-                <View>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => abrirLista()}>
-                            Voltar
-                        </Text>
-                    </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.viewPharmacies}>
+                <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.title}>Farmácias Proximas</Text>
                 </View>
-            ) : (
-                // se for false
-                <View style={styles.viewPharmacies}>
-                    <View style={{alignItems: 'center'}}>
-                        <Text style={styles.title}>Farmácias Proximas</Text>
-                    </View>
-                    <FlatList
-                        data={users}
-                        keyExtractor={(user) => user.id.toString()}
-                        renderItem={getPharmacie}
-                    />
-                </View>
-            )}
+                <FlatList
+                    data={pharmacies}
+                    keyExtractor={(pharmacie) => pharmacie.id.toString()}
+                    renderItem={getPharmacie}
+                />
+            </View>
         </View>
     );
 }

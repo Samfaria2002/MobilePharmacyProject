@@ -5,6 +5,8 @@ import SignIn from '../pages/SignIn'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
 import Pharmacies from '../pages/Pharmacies'
+import UserPage from '../pages/UserPage'
+import Medicines from '../pages/Medicines'
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,17 @@ export default function Routes(){
                 name="Pharmacies" 
                 component={Pharmacies}
                 options={{ headerShown: false}}
+            />
+            <Stack.Screen
+                name="UserPage"
+                component={UserPage}
+                options={{ headerShown: false}}
+            />
+            <Stack.Screen
+                name="Medicines"
+                component={Medicines}
+                options={{ headerShown: false}}
+                
             />
         </Stack.Navigator>
     )
