@@ -1,22 +1,33 @@
 import { View, Text, TextInput, Image, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import { styles } from "../SignIn/style";
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller } from 'react-hook-form'
 
 export default function Register() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
-  const [confirmaSenha, setConfirmaSenha] = useState('')
+  const { control, handleSubmit, formState: { errors } } = useForm({})
 
   // função para cadastrar user
-  const handleSingUp = () => {
-    if (senha == confirmaSenha) {
-      navigation.navigate("SignIn")
-    } else {
-      alert('As senhas precisam ser iguais!')
-    }
+  const handleSingUp = (data) => {
+    console.log(data)
+    // if (senha == confirmaSenha) {
+    //   navigation.navigate("SignIn")
+    // } else {
+    //   alert('As senhas precisam ser iguais!')
+    // }
   }
+
+
+  const [username, setUsername] = useState('')
+  const [senha, setSenha] = useState('')
+  const [confirmaSenha, setConfirmaSenha] = useState('')
+  const userType = "c"
+  const [name, setName] = useState('')
+  const [sexo, setSexo] = useState('')
+  // const [email, setEmail] = useState('')
+  const [dataNascimento, setDataNascimento] = useState('')
+
 
   return (
     <KeyboardAvoidingView style={styles.keyBoardView} behavior="padding">
@@ -26,13 +37,53 @@ export default function Register() {
           <Text style={styles.registerTitle}>Crie sua conta para começar!</Text>
         </View>
 
+        <Text style={styles.textForm}>Login</Text>
+        <Controller
+          control={control}
+          name="username"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Insira um username"
+            ></TextInput>
+          )}
+        />
+
+        <Text style={styles.textForm}>Nome</Text>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Insira seu nome completo"
+            ></TextInput>
+          )}
+        />
+
         <Text style={styles.textForm}>Email</Text>
-        <TextInput
-          style={styles.textInput}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Insira seu email"
-        ></TextInput>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Insira seu email"
+            ></TextInput>
+          )}
+        />
+
+
+
 
         <Text style={styles.textForm}>Nome completo</Text>
         <TextInput style={styles.textInput} placeholder="Insira seu nome completo" ></TextInput>
@@ -58,7 +109,7 @@ export default function Register() {
           onChangeText={(text) => setConfirmaSenha(text)}
         ></TextInput>
 
-        <TouchableOpacity onPress={handleSingUp} style={styles.button}>
+        <TouchableOpacity onPress={handleSubmit(handleSingUp)} style={styles.button}>
           <Text style={styles.textButton}>Registrar</Text>
         </TouchableOpacity>
 

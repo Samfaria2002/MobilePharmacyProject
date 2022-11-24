@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity, Dimensions, PermissionsAndroid } from "react-native";
 import { styles } from "./style";
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native'
@@ -6,13 +6,12 @@ import MapView from 'react-native-maps'
 import Search from "../components/search"
 import { IconButton } from 'react-native-paper';
 
-export default function Home() {
 
-    function messageError(){
+export default function Home() {
+    function messageError() {
         alert('Ainda temos essa funcionalidade tente novamente em atualizações futuras :D \n\nNós da HelpPharm estamos sempre trabalhando para melhorar!')
     }
     const { width } = Dimensions.get('window');
-
     const navigation = useNavigation();
     let [regiao, setRegio] = useState({
         latitude: -19.91449234135285,
@@ -21,7 +20,7 @@ export default function Home() {
         longitudeDelta: 0.0421
     })
 
-    function teste(){
+    function teste() {
         navigation.navigate('UserPage')
     }
 

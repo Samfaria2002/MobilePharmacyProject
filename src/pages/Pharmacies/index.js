@@ -1,24 +1,31 @@
 import { styles } from "./style";
 import React, { useState } from "react"
 import { View, Text, FlatList, TouchableOpacity } from "react-native"
-import pharmacies from "../../data/pharmacie"
+// import pharmacies from "../../data/pharmacie"
 import { IconButton } from 'react-native-paper';
 import { ListItem } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native'
 
-export default function Pharmacies() {
+
+// pharmacies
+export default function Pharmacies({ route }) {
+
+    const response = route.params;
+    var pharmacies = response.pharmacies;
+    
+
     const navigation = useNavigation();
     const [pharmacieID, setPharmacieID] = useState(null)
 
     function abrirDetalhe(pharmacie) {
-        setPharmacieID(pharmacie.id)
-        navigation.navigate('Medicines', { pharmacieID: pharmacie.id })
+        setPharmacieID(pharmacie.pharmacyId)
+        navigation.navigate('Medicines', { pharmacie: pharmacie })
     }
 
     function getPharmacie({ item: pharmacie }) {
         return (
             <View style={styles.item}>
-                <ListItem key={pharmacie.id} bottomDivider>
+                <ListItem key={pharmacie.pharmacyId} bottomDivider>
                     <IconButton
                         icon="hospital-marker"
                         size={40}
@@ -27,7 +34,7 @@ export default function Pharmacies() {
                     />
                     <ListItem.Content>
                         <ListItem.Title>{pharmacie.name}</ListItem.Title>
-                        <ListItem.Subtitle>{pharmacie.endereco}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{pharmacie.rua}</ListItem.Subtitle>
                         <Text
                             style={styles.textInformacao}
                             onPress={() => abrirDetalhe(pharmacie)}
@@ -48,7 +55,7 @@ export default function Pharmacies() {
                 </View>
                 <FlatList
                     data={pharmacies}
-                    keyExtractor={(pharmacie) => pharmacie.id.toString()}
+                    keyExtractor={(pharmacie) => pharmacie.pharmacyId.toString()}
                     renderItem={getPharmacie}
                 />
             </View>

@@ -10,10 +10,20 @@ const Search = () => {
     const onChangeSearch = query => setSearchQuery(query);
     const onIconPress = () => {
         if (searchQuery != '') {
-            navigation.navigate('Pharmacies')
+            fetch('https://spartom.pythonanywhere.com/api/remedy/' + searchQuery, {
+                method: 'GET'
+            })
+            .then(resp => resp.json())
+            .then(resp => {
+                if(resp != ''){
+                    navigation.navigate('Pharmacies', { pharmacies: resp })
+                    
+                }else{
+                    alert("Não econtramos nenhum remedio que condiz com a descrição informada.")
+                }
+            })
         } else {
             alert("Informe um remédio!")
-
         }
     }
 

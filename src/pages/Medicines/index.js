@@ -10,13 +10,11 @@ import { IconButton } from 'react-native-paper';
 
 
 export default function Medicines({ route }) {
-    const { pharmacieID } = route.params;
+    const pharmacie = route.params.pharmacie
+    const { pharmacieID } = pharmacie.pharmacyId;
     
-    const pharmacie = pharmacies.filter((item) => {
-        return item["id"] === pharmacieID
-    })
     
-    const medicinesList = medicines.filter(medicine => medicine.pharmacieID === pharmacie[0].id)
+    const medicinesList = medicines.filter(medicine => medicine.pharmacieID === pharmacieID)
     const [quantidadeRemedio, setQuantidadeRemedio] = useState('')
 
     function atualizarQuantidade() {
@@ -70,8 +68,8 @@ export default function Medicines({ route }) {
                         </View>
                         <Card.Divider />
                         <View style={styles.infoPharmacie}>
-                            <Text style={styles.pharmacieName}>{pharmacie[0].name}</Text>
-                            <Text style={styles.text}>Endereço: {pharmacie[0].endereco}</Text>
+                            <Text style={styles.pharmacieName}>{pharmacie.name}</Text>
+                            <Text style={styles.text}>Endereço: {pharmacie.rua}</Text>
                         </View>
                     
                         {medicinesList != '' ? (
