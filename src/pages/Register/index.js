@@ -1,38 +1,59 @@
-import { View, Text, TextInput, Image, TouchableOpacity, KeyboardAvoidingView } from "react-native";
-import { styles } from "../SignIn/style";
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { styles } from "./style";
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function Register() {
   const navigation = useNavigation();
-  const { control, handleSubmit, formState: { errors } } = useForm({})
+
+  const schema = yup.object({
+    username: yup.string().required("Informe um nome de usuario"),
+    name: yup.string().required("Informe seu nome completo"),
+    email: yup.string().email("Email Invalido").required("Informe seu email"),
+    password: yup.string().min(4, "A senha precisa conter pelo menos 4 caracteres").required("Informe uma senha"),
+
+  })
+
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  })
 
   // função para cadastrar user
   const handleSingUp = (data) => {
+    data.sex = "M"
+    data.userType = "C"
+    data.pharmacyId = null
+    
     console.log(data)
-    // if (senha == confirmaSenha) {
-    //   navigation.navigate("SignIn")
-    // } else {
-    //   alert('As senhas precisam ser iguais!')
-    // }
+    if (data.password == data['password-confirm']) {
+      fetch('https://spartom.pythonanywhere.com/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(resp => resp.json())
+        .then(resp => {
+          console.log(resp)
+          if (resp != '') {
+            alert("Cadastro realizado com sucesso!")
+            navigation.navigate('SignIn')
+          } else {
+            alert(resp)
+          }
+        })
+    } else {
+      alert('As senhas precisam ser iguais!')
+    }
   }
 
-
-  const [username, setUsername] = useState('')
-  const [senha, setSenha] = useState('')
-  const [confirmaSenha, setConfirmaSenha] = useState('')
-  const userType = "c"
-  const [name, setName] = useState('')
-  const [sexo, setSexo] = useState('')
-  // const [email, setEmail] = useState('')
-  const [dataNascimento, setDataNascimento] = useState('')
-
-
   return (
-    <KeyboardAvoidingView style={styles.keyBoardView} behavior="padding">
+    <ScrollView style={styles.scrollView}>
       <View style={styles.formContext}>
-
         <View style={styles.registerTitleBox}>
           <Text style={styles.registerTitle}>Crie sua conta para começar!</Text>
         </View>
@@ -43,7 +64,7 @@ export default function Register() {
           name="username"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              style={styles.textInput}
+              style={[styles.textInput, { borderWidth: errors.username && 2, borderColor: errors.username && 'red' }]}
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
@@ -51,6 +72,7 @@ export default function Register() {
             ></TextInput>
           )}
         />
+        {errors.username && <Text style={{ alignSelf: 'flex-start', color: 'red', marginBottom: 8 }}>{errors.username?.message}</Text>}
 
         <Text style={styles.textForm}>Nome</Text>
         <Controller
@@ -63,6 +85,36 @@ export default function Register() {
               onBlur={onBlur}
               value={value}
               placeholder="Insira seu nome completo"
+            ></TextInput>
+          )}
+        />
+
+        <Text style={styles.textForm}>Sexo</Text>
+        <Controller
+          control={control}
+          name="sex"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={"M"}
+              placeholder="Insira seu sexo"
+            ></TextInput>
+          )}
+        />
+
+        <Text style={styles.textForm}>UserType</Text>
+        <Controller
+          control={control}
+          name="userType"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={"C"}
+              placeholder=""
             ></TextInput>
           )}
         />
@@ -82,38 +134,60 @@ export default function Register() {
           )}
         />
 
-
-
-
-        <Text style={styles.textForm}>Nome completo</Text>
-        <TextInput style={styles.textInput} placeholder="Insira seu nome completo" ></TextInput>
-
         <Text style={styles.textForm}>Data de nascimento</Text>
-        <TextInput style={styles.textInput} keyboardType="numbers-and-punctuation" placeholder="Insira sua data de nascimento" ></TextInput>
+        <Controller
+          control={control}
+          name="data-nascimento"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="dd/MM/yyyy"
+              keyboardType="numbers-and-punctuation"
+            ></TextInput>
+          )}
+        />
 
         <Text style={styles.textForm}>Senha</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Insira sua senha"
-          secureTextEntry={true}
-          value={senha}
-          onChangeText={(text) => setSenha(text)}
-        ></TextInput>
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Insira sua senha"
+              secureTextEntry={true}
+            ></TextInput>
+          )}
+        />
 
         <Text style={styles.textForm}>Confirmar senha</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Insira sua senha"
-          secureTextEntry={true}
-          value={confirmaSenha}
-          onChangeText={(text) => setConfirmaSenha(text)}
-        ></TextInput>
+        <Controller
+          control={control}
+          name="password-confirm"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Insira sua senha"
+              secureTextEntry={true}
+            ></TextInput>
+          )}
+        />
 
         <TouchableOpacity onPress={handleSubmit(handleSingUp)} style={styles.button}>
           <Text style={styles.textButton}>Registrar</Text>
         </TouchableOpacity>
 
       </View>
-    </KeyboardAvoidingView>
+
+    </ScrollView>
   );
 }

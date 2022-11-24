@@ -11,10 +11,29 @@ export default function SignIn() {
   const [senha, setSenha] = useState('')
 
   const handleLogin = () => {
-    navigation.navigate('Home')
+    
+
+    if (login != "" && senha != "") {
+      fetch('https://spartom.pythonanywhere.com/Login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(resp => resp.json())
+        .then(resp => {
+          if (resp != '') {
+            navigation.navigate('Home')
+          } else {
+            alert("Usuário não encontrado ou inexistente")
+          }
+        })
+    } else {
+      alert("Usuário não encontrado ou inexistente")
+    }
   }
 
- 
   return (
     <KeyboardAvoidingView style={styles.keyBoardView} behavior="padding">
       <View style={styles.formContext}>
@@ -38,7 +57,7 @@ export default function SignIn() {
             onChangeText={(text) => setSenha(text)}
           />
         </View>
-        <View style={{justifyContent: 'space-evenly', padding: 10, flex: 1 }}>
+        <View style={{ justifyContent: 'space-evenly', padding: 10, flex: 1 }}>
           <TouchableOpacity onPress={handleLogin} style={styles.button}>
             <Text style={styles.textButton}>Fazer Login</Text>
           </TouchableOpacity>
